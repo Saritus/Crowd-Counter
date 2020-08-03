@@ -1,3 +1,5 @@
+import time
+
 import cv2
 import matplotlib.cm as c
 import matplotlib.pyplot as plt
@@ -62,19 +64,23 @@ def main():
     model = load_model()
 
     cap = get_webcam(stream=0, width=1440, height=1080)
-    image = get_webcam_image(cap=cap)
-    print(image.shape)
 
-    plt.imshow(image.reshape(*image.shape[-3:]))
-    plt.show()
+    for _ in range(10):
+        image = get_webcam_image(cap=cap)
+        print(image.shape)
 
-    prediction = model.predict(image)
-    count = np.sum(prediction)
+        plt.imshow(image.reshape(*image.shape[-3:]))
+        plt.show()
 
-    plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
-    plt.show()
+        prediction = model.predict(image)
+        count = np.sum(prediction)
 
-    print("Prediction :", count)
+        plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
+        plt.show()
+
+        print("Prediction :", count)
+
+        time.sleep(1)
 
 
 if __name__ == '__main__':
