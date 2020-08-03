@@ -5,11 +5,12 @@ from keras.models import model_from_json
 
 import mat4conda
 
-'''
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-sess = tf.Session(config=config)
-'''
+
+def config_gpu():
+    import tensorflow as tf
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
 
 
 def get_webcam(stream: int, width: int, height: int):
