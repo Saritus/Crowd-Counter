@@ -52,9 +52,9 @@ def predict(path):
     # Function to load image,predict heat map, generate count and return (count , image , heat map)
     model = load_model()
     image = create_img(path)
-    ans = model.predict(image)
-    count = np.sum(ans)
-    return count, image, ans
+    prediction = model.predict(image)
+    count = np.sum(prediction)
+    return count, image, prediction
 
 
 def main():
