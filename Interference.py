@@ -55,10 +55,11 @@ def predict(path):
     return count, image, ans
 
 
-with open("part_A_test_predict.csv", "w") as fp:
-    print("index;truth;prediction", file=fp)
+def main():
+    with open("part_A_test_predict.csv", "w") as fp:
+        print("index;truth;prediction", file=fp)
 
-for index in range(148, 182):
+    index = 130
     ans, img, hmap = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
 
     # print(ans)
@@ -77,3 +78,7 @@ for index in range(148, 182):
 
     with open("part_A_test_predict.csv", "a") as fp:
         print(";".join((str(index), str(truth), str(ans))), file=fp)
+
+
+if __name__ == '__main__':
+    main()
