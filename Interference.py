@@ -19,6 +19,16 @@ def get_webcam(stream: int, width: int, height: int):
     cap = cv2.VideoCapture(stream)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    return cap
+
+
+def get_webcam_image(cap: cv2.VideoCapture):
+    _, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    # Convert the image from BGR color (which OpenCV uses) to RGB color
+    rgb_frame = frame[:, :, ::-1]
+    rgb_frame = np.expand_dims(rgb_frame, axis=0)
+    return rgb_frame
 
 
 def load_model():
@@ -57,11 +67,16 @@ def main():
     path = f'data/part_A_final/test_data/images/IMG_{index}.jpg'
     image = create_img(path)
 
+    cap = get_webcam(stream=0, width=800, height=600)
+    image = get_webcam_image(cap=cap)
+    print(image.shape)
+
+    plt.imshow(image.reshape(*image.shape[-3:]))
+    plt.show()
+
     prediction = model.predict(image)
     count = np.sum(prediction)
 
-    plt.imshow(image.reshape(*image.shape[1:]))
-    plt.show()
     plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
     plt.show()
 
