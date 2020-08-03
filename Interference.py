@@ -67,7 +67,7 @@ def main():
 
     print(ans)
     # Print count, image, heat map
-    plt.imshow(img.reshape(img.shape[1], img.shape[2], img.shape[3]))
+    plt.imshow(img.reshape(*img.shape[1:]))
     plt.show()
     plt.imshow(hmap.reshape(hmap.shape[1], hmap.shape[2]), cmap=c.jet)
     plt.show()
