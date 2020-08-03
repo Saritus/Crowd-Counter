@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from PIL import Image
 from keras.models import model_from_json
+import matplotlib.pyplot as plt
+import matplotlib.cm as c
 
 import mat4conda
 
@@ -62,12 +64,12 @@ def main():
     index = 130
     ans, img, hmap = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
 
-    # print(ans)
+    print(ans)
     # Print count, image, heat map
-    # plt.imshow(img.reshape(img.shape[1], img.shape[2], img.shape[3]))
-    # plt.show()
-    # plt.imshow(hmap.reshape(hmap.shape[1], hmap.shape[2]), cmap=c.jet)
-    # plt.show()
+    plt.imshow(img.reshape(img.shape[1], img.shape[2], img.shape[3]))
+    plt.show()
+    plt.imshow(hmap.reshape(hmap.shape[1], hmap.shape[2]), cmap=c.jet)
+    plt.show()
 
     filename = f'data/part_A_final/test_data/ground_truth/GT_IMG_{index}.mat'
     temp = mat4conda.loadmat(filename)
