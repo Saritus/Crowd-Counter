@@ -50,8 +50,6 @@ def create_img(path):
 
 def main():
     config_gpu()
-    with open("part_A_test_predict.csv", "w") as fp:
-        print("index;truth;prediction", file=fp)
 
     index = 130
 
@@ -73,9 +71,6 @@ def main():
     # plt.imshow(temp_1,cmap = c.jet)
     truth = temp['image_info']['number']
     # print("Original Count : ", truth)
-
-    with open("part_A_test_predict.csv", "a") as fp:
-        print(";".join((str(index), str(truth), str(count))), file=fp)
 
 
 if __name__ == '__main__':
