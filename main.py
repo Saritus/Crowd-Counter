@@ -1,3 +1,4 @@
+import argparse
 import time
 
 import cv2
@@ -59,11 +60,21 @@ def create_img(path):
 
 
 def main():
-    config_gpu()
+    parser = argparse.ArgumentParser(description='Trains a model.')
+    parser.add_argument('--stream', dest='stream', type=int, default=0, help="webcam input stream")
+    parser.add_argument('--width', dest='width', type=int, default=1920, help="webcam image width")
+    parser.add_argument('--height', dest='height', type=int, default=1080, help="webcam image height")
+    parser.add_argument('--gpu', dest='gpu', default=False, action='store_true', help="webcam image height", )
+    parser.add_argument('--frequency', dest='frequency', type=int, default=0, help="image duration in seconds")
+
+    args = parser.parse_args()
+
+    if args.gpu:
+        config_gpu()
 
     model = load_model()
 
-    cap = get_webcam(stream=0, width=1440, height=1080)
+    cap = get_webcam(stream=args.stream, width=args.width, height=args.height)
 
     while True:
         image = get_webcam_image(cap=cap)
@@ -80,7 +91,7 @@ def main():
 
         print("Prediction :", count)
 
-        time.sleep(1)
+        time.sleep(args.frequency)
 
 
 if __name__ == '__main__':
