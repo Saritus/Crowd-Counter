@@ -1,3 +1,4 @@
+import cv2
 import numpy as np
 from PIL import Image
 from keras.models import model_from_json
@@ -9,6 +10,13 @@ config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 '''
+
+
+def get_webcam(stream: int, width: int, height: int):
+    cap = cv2.VideoCapture(stream)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+
 
 def load_model():
     # Function to load and return neural network model
@@ -44,6 +52,7 @@ def predict(path):
     ans = model.predict(image)
     count = np.sum(ans)
     return count, image, ans
+
 
 with open("part_A_test_predict.csv", "w") as fp:
     print("index;truth;prediction", file=fp)
