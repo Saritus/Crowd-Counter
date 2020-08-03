@@ -1,9 +1,9 @@
 import cv2
+import matplotlib.cm as c
+import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 from keras.models import model_from_json
-import matplotlib.pyplot as plt
-import matplotlib.cm as c
 
 import mat4conda
 
@@ -66,7 +66,6 @@ def main():
     count, image, prediction = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
 
     print(count)
-    # Print count, image, heat map
     plt.imshow(image.reshape(*image.shape[1:]))
     plt.show()
     plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
