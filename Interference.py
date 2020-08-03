@@ -58,6 +58,7 @@ def predict(path):
 
 
 def main():
+    config_gpu()
     with open("part_A_test_predict.csv", "w") as fp:
         print("index;truth;prediction", file=fp)
 
