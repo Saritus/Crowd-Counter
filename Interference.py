@@ -48,22 +48,18 @@ def create_img(path):
     return im
 
 
-def predict(path):
-    # Function to load image,predict heat map, generate count and return (count , image , heat map)
-    model = load_model()
-    image = create_img(path)
-    prediction = model.predict(image)
-    count = np.sum(prediction)
-    return count, image, prediction
-
-
 def main():
     config_gpu()
     with open("part_A_test_predict.csv", "w") as fp:
         print("index;truth;prediction", file=fp)
 
     index = 130
-    count, image, prediction = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
+
+    model = load_model()
+    path = f'data/part_A_final/test_data/images/IMG_{index}.jpg'
+    image = create_img(path)
+    prediction = model.predict(image)
+    count = np.sum(prediction)
 
     print(count)
     plt.imshow(image.reshape(*image.shape[1:]))
