@@ -65,7 +65,7 @@ def main():
 
     cap = get_webcam(stream=0, width=1440, height=1080)
 
-    for _ in range(10):
+    while True:
         image = get_webcam_image(cap=cap)
         print(image.shape)
 
