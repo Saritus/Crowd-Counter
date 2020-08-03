@@ -64,7 +64,7 @@ def main():
     parser.add_argument('--stream', dest='stream', type=int, default=0, help="webcam input stream")
     parser.add_argument('--width', dest='width', type=int, default=1920, help="webcam image width")
     parser.add_argument('--height', dest='height', type=int, default=1080, help="webcam image height")
-    parser.add_argument('--gpu', dest='gpu', default=False, action='store_true', help="webcam image height", )
+    parser.add_argument('--gpu', dest='gpu', default=False, action='store_true', help="use gpu?", )
     parser.add_argument('--frequency', dest='frequency', type=int, default=0, help="image duration in seconds")
 
     args = parser.parse_args()
