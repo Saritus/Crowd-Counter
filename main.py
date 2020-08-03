@@ -5,8 +5,6 @@ import numpy as np
 from PIL import Image
 from keras.models import model_from_json
 
-import mat4conda
-
 
 def config_gpu():
     import tensorflow as tf
@@ -63,10 +61,6 @@ def main():
 
     model = load_model()
 
-    index = 130
-    path = f'data/part_A_final/test_data/images/IMG_{index}.jpg'
-    image = create_img(path)
-
     cap = get_webcam(stream=0, width=1440, height=1080)
     image = get_webcam_image(cap=cap)
     print(image.shape)
@@ -80,12 +74,7 @@ def main():
     plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
     plt.show()
 
-    filename = f'data/part_A_final/test_data/ground_truth/GT_IMG_{index}.mat'
-    temp = mat4conda.loadmat(filename)
-
-    truth = temp['image_info']['number']
-    print("Original Count :", truth)
-    print("Prediction Count :", count)
+    print("Prediction :", count)
 
 
 if __name__ == '__main__':
