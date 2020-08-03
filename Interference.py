@@ -63,9 +63,9 @@ def main():
         print("index;truth;prediction", file=fp)
 
     index = 130
-    ans, img, hmap = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
+    count, img, hmap = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
 
-    print(ans)
+    print(count)
     # Print count, image, heat map
     plt.imshow(img.reshape(*img.shape[1:]))
     plt.show()
@@ -80,7 +80,7 @@ def main():
     # print("Original Count : ", truth)
 
     with open("part_A_test_predict.csv", "a") as fp:
-        print(";".join((str(index), str(truth), str(ans))), file=fp)
+        print(";".join((str(index), str(truth), str(count))), file=fp)
 
 
 if __name__ == '__main__':
