@@ -51,15 +51,15 @@ def create_img(path):
 def main():
     config_gpu()
 
-    index = 130
-
     model = load_model()
+
+    index = 130
     path = f'data/part_A_final/test_data/images/IMG_{index}.jpg'
     image = create_img(path)
+
     prediction = model.predict(image)
     count = np.sum(prediction)
 
-    print(count)
     plt.imshow(image.reshape(*image.shape[1:]))
     plt.show()
     plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
@@ -68,9 +68,9 @@ def main():
     filename = f'data/part_A_final/test_data/ground_truth/GT_IMG_{index}.mat'
     temp = mat4conda.loadmat(filename)
 
-    # plt.imshow(temp_1,cmap = c.jet)
     truth = temp['image_info']['number']
-    # print("Original Count : ", truth)
+    print("Original Count :", truth)
+    print("Prediction Count :", count)
 
 
 if __name__ == '__main__':
