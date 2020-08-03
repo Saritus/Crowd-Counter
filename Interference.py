@@ -63,11 +63,11 @@ def main():
         print("index;truth;prediction", file=fp)
 
     index = 130
-    count, img, hmap = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
+    count, image, hmap = predict(f'data/part_A_final/test_data/images/IMG_{index}.jpg')
 
     print(count)
     # Print count, image, heat map
-    plt.imshow(img.reshape(*img.shape[1:]))
+    plt.imshow(image.reshape(*image.shape[1:]))
     plt.show()
     plt.imshow(hmap.reshape(hmap.shape[1], hmap.shape[2]), cmap=c.jet)
     plt.show()
