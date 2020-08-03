@@ -67,7 +67,7 @@ def main():
     path = f'data/part_A_final/test_data/images/IMG_{index}.jpg'
     image = create_img(path)
 
-    cap = get_webcam(stream=0, width=800, height=600)
+    cap = get_webcam(stream=0, width=1440, height=1080)
     image = get_webcam_image(cap=cap)
     print(image.shape)
 
