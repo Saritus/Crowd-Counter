@@ -61,7 +61,8 @@ def create_img(path):
 
 def main():
     parser = argparse.ArgumentParser(description='Trains a model.')
-    parser.add_argument('--stream', dest='stream', type=int, default=0, help="webcam input stream")
+    parser.add_argument('--stream', dest='stream', type=int, help="webcam input stream")
+    parser.add_argument('--path', dest='path', type=str, help="path to image")
     parser.add_argument('--width', dest='width', type=int, default=1920, help="webcam image width")
     parser.add_argument('--height', dest='height', type=int, default=1080, help="webcam image height")
     parser.add_argument('--gpu', dest='gpu', default=False, action='store_true', help="use gpu?", )
@@ -74,11 +75,18 @@ def main():
 
     model = load_model()
 
-    cap = get_webcam(stream=args.stream, width=args.width, height=args.height)
+    if args.stream != None:
+        cap = get_webcam(stream=args.stream, width=args.width, height=args.height)
 
-    while True:
-        image = get_webcam_image(cap=cap)
-        print(image.shape)
+    loop = True
+    while loop:
+        if args.stream != None:
+            image = get_webcam_image(cap=cap)
+            print(image.shape)
+        else:
+            image = create_img(args.path)
+            print(image.shape)
+            loop = False
 
         plt.imshow(image.reshape(*image.shape[-3:]))
         plt.show()
