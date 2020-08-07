@@ -75,6 +75,8 @@ def select_image():
     panel.configure(image=img2)
     panel.image = img2
 
+    predict_button.config(text="Predict")
+
 
 def predict_image():
     image = create_img(image_path)
@@ -90,6 +92,7 @@ def predict_image():
     plt.show()
 
     print("Prediction :", count)
+    predict_button.config(text=str(count))
 
 
 model = load_model()
