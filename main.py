@@ -1,11 +1,11 @@
-import argparse
-import time
+import tkinter  as tk
+import tkinter.filedialog as fd
 
 import cv2
 import matplotlib.cm as c
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageTk
 from keras.models import model_from_json
 
 
@@ -59,48 +59,53 @@ def create_img(path):
     return im
 
 
-def main():
-    parser = argparse.ArgumentParser(description='Trains a model.')
-    parser.add_argument('--stream', dest='stream', type=int, help="webcam input stream")
-    parser.add_argument('--path', dest='path', type=str, help="path to image")
-    parser.add_argument('--width', dest='width', type=int, default=1920, help="webcam image width")
-    parser.add_argument('--height', dest='height', type=int, default=1080, help="webcam image height")
-    parser.add_argument('--gpu', dest='gpu', default=False, action='store_true', help="use gpu?", )
-    parser.add_argument('--frequency', dest='frequency', type=int, default=0, help="image duration in seconds")
-
-    args = parser.parse_args()
-
-    if args.gpu:
-        config_gpu()
-
-    model = load_model()
-
-    if args.stream != None:
-        cap = get_webcam(stream=args.stream, width=args.width, height=args.height)
-
-    loop = True
-    while loop:
-        if args.stream != None:
-            image = get_webcam_image(cap=cap)
-            print(image.shape)
-        else:
-            image = create_img(args.path)
-            print(image.shape)
-            loop = False
-
-        plt.imshow(image.reshape(*image.shape[-3:]))
-        plt.show()
-
-        prediction = model.predict(image)
-        count = np.sum(prediction)
-
-        plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
-        plt.show()
-
-        print("Prediction :", count)
-
-        time.sleep(args.frequency)
+image_path = None
 
 
-if __name__ == '__main__':
-    main()
+def select_image():
+    global image_path
+    image_path = fd.askopenfilename(
+        initialdir="/", title="Select file",
+        filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*"))
+    )
+
+    path_label.config(text=image_path)
+
+    img2 = ImageTk.PhotoImage(Image.open(image_path))
+    panel.configure(image=img2)
+    panel.image = img2
+
+
+def predict_image():
+    image = create_img(image_path)
+    print(image.shape)
+
+    plt.imshow(image.reshape(*image.shape[-3:]))
+    plt.show()
+
+    prediction = model.predict(image)
+    count = np.sum(prediction)
+
+    plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
+    plt.show()
+
+    print("Prediction :", count)
+
+
+model = load_model()
+
+root = tk.Tk()
+
+path_label = tk.Label(root, text="Hello Tkinter!")
+path_label.pack()
+
+select_button = tk.Button(root, text='Select', width=25, command=select_image)
+select_button.pack()
+
+panel = tk.Label(root)
+panel.pack(side="bottom", fill="both", expand="yes")
+
+predict_button = tk.Button(root, text='Predict', width=25, command=predict_image)
+predict_button.pack()
+
+root.mainloop()
