@@ -81,7 +81,7 @@ def predict_image():
     print(image.shape)
 
     prediction = model.predict(image)
-    count = np.sum(prediction)
+    count = int(round(np.sum(prediction)))
 
     print("Prediction :", count)
     predict_button.config(text=str(count))
