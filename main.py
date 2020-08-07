@@ -2,8 +2,6 @@ import tkinter  as tk
 import tkinter.filedialog as fd
 
 import cv2
-import matplotlib.cm as c
-import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageTk
 from keras.models import model_from_json
@@ -82,14 +80,8 @@ def predict_image():
     image = create_img(image_path)
     print(image.shape)
 
-    plt.imshow(image.reshape(*image.shape[-3:]))
-    plt.show()
-
     prediction = model.predict(image)
     count = np.sum(prediction)
-
-    plt.imshow(prediction.reshape(prediction.shape[1], prediction.shape[2]), cmap=c.jet)
-    plt.show()
 
     print("Prediction :", count)
     predict_button.config(text=str(count))
