@@ -96,7 +96,7 @@ model = load_model()
 
 root = tk.Tk()
 
-path_label = tk.Label(root, text="Hello Tkinter!")
+path_label = tk.Label(root, text="Select image")
 path_label.pack()
 
 select_button = tk.Button(root, text='Select', width=25, command=select_image)
