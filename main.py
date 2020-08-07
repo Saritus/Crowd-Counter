@@ -84,7 +84,7 @@ def predict_image():
     count = int(round(np.sum(prediction)))
 
     print("Prediction :", count)
-    predict_button.config(text=str(count))
+    predict_button.config(text=f"Count: {count}")
 
 
 model = load_model()
