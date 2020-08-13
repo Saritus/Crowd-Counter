@@ -1,3 +1,4 @@
+import os
 import tkinter  as tk
 import tkinter.filedialog as fd
 
@@ -32,6 +33,7 @@ def get_webcam_image(cap: cv2.VideoCapture):
 
 def load_model():
     # Function to load and return neural network model
+    cwd = os.path.dirname(os.path.abspath(__file__))
     json_file = open('models/Model.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
