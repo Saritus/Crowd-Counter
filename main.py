@@ -39,7 +39,8 @@ def load_model():
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
-    loaded_model.load_weights("weights/model_A_weights.h5")
+    weights_path = os.path.join(cwd, "weights", "model_A_weights.h5")
+    loaded_model.load_weights(weights_path)
     return loaded_model
 
 
