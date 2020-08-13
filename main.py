@@ -34,7 +34,8 @@ def get_webcam_image(cap: cv2.VideoCapture):
 def load_model():
     # Function to load and return neural network model
     cwd = os.path.dirname(os.path.abspath(__file__))
-    json_file = open('models/Model.json', 'r')
+    json_path = os.path.join(cwd, "models", "Model.json")
+    json_file = open(json_path, 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
