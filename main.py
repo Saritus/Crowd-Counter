@@ -9,6 +9,7 @@ from keras.models import model_from_json
 
 
 def config_gpu():
+    # Allow allocated gpu storage to grow on demand
     import tensorflow as tf
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
@@ -16,6 +17,7 @@ def config_gpu():
 
 
 def get_webcam(stream: int, width: int, height: int):
+    # Get OpenCV webcam object
     cap = cv2.VideoCapture(stream)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -23,6 +25,7 @@ def get_webcam(stream: int, width: int, height: int):
 
 
 def get_webcam_image(cap: cv2.VideoCapture):
+    # Get image from webcam object
     _, frame = cap.read()
     frame = cv2.flip(frame, 1)
     # Convert the image from BGR color (which OpenCV uses) to RGB color
@@ -45,19 +48,25 @@ def load_model():
 
 
 def create_img(path):
-    # Function to load,normalize and return image
-    # print(path)
+    # Load image from filepath
     im = Image.open(path).convert('RGB')
 
+    # Convert PIL.Image to numpy array
     im = np.array(im)
 
+    # Change image values from range [0..255] to [0..1]
     im = im / 255.0
 
+    # Normalize image based on PyTorch transforms.Normalize
+    # See https://pytorch.org/docs/stable/torchvision/models.html
     im[:, :, 0] = (im[:, :, 0] - 0.485) / 0.229
     im[:, :, 1] = (im[:, :, 1] - 0.456) / 0.224
     im[:, :, 2] = (im[:, :, 2] - 0.406) / 0.225
 
+    # Expand image array from 3-dim to 4-dim
     im = np.expand_dims(im, axis=0)
+
+    # Return image array
     return im
 
 
