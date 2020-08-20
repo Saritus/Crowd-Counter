@@ -67,7 +67,7 @@ image_path = None
 def select_image():
     global image_path
     image_path = fd.askopenfilename(
-        initialdir="/", title="Select file",
+        title="Select file",
         filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*"))
     )
 
