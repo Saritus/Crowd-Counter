@@ -1,5 +1,5 @@
 import os
-import tkinter  as tk
+import tkinter as tk
 import tkinter.filedialog as fd
 
 import cv2
